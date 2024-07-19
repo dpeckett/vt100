@@ -5,7 +5,6 @@ import (
 	"expvar"
 	"fmt"
 	"image/color"
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -242,8 +241,6 @@ func (c escapeCommand) err(e error) error {
 	return fmt.Errorf("%s: %s", c, e)
 }
 
-var csArgsRe = regexp.MustCompile("^([^0-9]*)(.*)$")
-
 // argInts parses c.args as a slice of at least arity ints. If the number
 // of ; separated arguments is less than arity, the remaining elements of
 // the result will be zero. errors only on integer parsing failure.
@@ -267,11 +264,11 @@ type controlCommand rune
 
 const (
 	backspace      controlCommand = '\b'
-	_horizontalTab                = '\t'
-	linefeed                      = '\n'
-	_verticalTab                  = '\v'
-	_formfeed                     = '\f'
-	carriageReturn                = '\r'
+	_horizontalTab controlCommand = '\t'
+	linefeed       controlCommand = '\n'
+	_verticalTab   controlCommand = '\v'
+	_formfeed      controlCommand = '\f'
+	carriageReturn controlCommand = '\r'
 )
 
 func (c controlCommand) display(v *VT100) error {

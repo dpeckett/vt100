@@ -1,0 +1,27 @@
+Source: golang-github-jaguilar-vt100
+Section: golang
+Priority: optional
+Maintainer: Damian Peckett <damian@pecke.tt>
+Uploaders: Damian Peckett <damian@pecke.tt>
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-golang,
+               golang-any,
+               golang-github-stretchr-testify-dev
+Testsuite: autopkgtest-pkg-go
+Standards-Version: 4.6.2
+Vcs-Browser: https://github.com/dpeckett/vt100
+Vcs-Git: https://github.com/dpeckett/vt100.git
+Homepage: https://github.com/dpeckett/vt100
+XS-Go-Import-Path: github.com/jaguilar/vt100
+
+Package: golang-github-jaguilar-vt100-dev
+Architecture: all
+Multi-Arch: foreign
+Depends: golang-github-protonmail-go-crypto-dev,
+         golang-github-stretchr-testify-dev,
+         ${misc:Depends}
+Description: raw-mode vt100 screen reader
+ golang-github-jaguilar-vt100-dev is a vt100 screen reader. It does a decent job of parsing the nethack input stream.
+ .
+ The features currently supported: Cursor movement, Erasing, Many of the text properties -- underline, inverse, blink, etc., Sixteen colors, Cursor saving and unsaving, UTF-8.

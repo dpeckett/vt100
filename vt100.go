@@ -23,8 +23,8 @@ type Intensity int
 
 const (
 	Normal Intensity = 0
-	Bright           = 1
-	Dim              = 2
+	Bright Intensity = 1
+	Dim    Intensity = 2
 	// TODO(jaguilar): Should this be in a subpackage, since the names are pretty collide-y?
 )
 
@@ -244,7 +244,7 @@ func (v *VT100) Write(dt []byte) (int, error) {
 			}
 			return n, nil
 		}
-		v.Process(cmd) // ignore error
+		_ = v.Process(cmd) // ignore error
 	}
 }
 

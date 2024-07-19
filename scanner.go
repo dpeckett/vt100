@@ -29,7 +29,10 @@ func Decode(s io.RuneScanner) (Command, error) {
 	}
 
 	if r == escape || r == monogramCsi { // At beginning of escape sequence.
-		s.UnreadRune()
+		if err := s.UnreadRune(); err != nil {
+			return nil, err
+		}
+
 		return scanEscapeCommand(s)
 	}
 
@@ -81,7 +84,7 @@ func scanEscapeCommand(s io.RuneScanner) (Command, error) {
 
 		if !csi {
 			return escapeCommand{r, ""}, nil
-		} else if quote == false && unicode.Is(csEnd, r) {
+		} else if !quote && unicode.Is(csEnd, r) {
 			return escapeCommand{r, args.String()}, nil
 		}
 
