@@ -40,9 +40,16 @@ jobs:
     - name: Package
       run: earthly +all
 
+    - name: Set Version
+      id: version
+      run: |
+        VERSION="git$(git log -1 --date=format:%Y%m%d --pretty=format:%cd).$(git rev-parse --short HEAD)"
+        echo "::set-output name=version::${VERSION}"
+
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
+        tag_name: ${{ steps.version.outputs.version }}
         files: |
           dist/*
           LICENSE
